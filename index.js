@@ -1,5 +1,5 @@
 import EnemyController from './EnemyController.js';
-import bulletController from './BulletController.js';
+import BulletController from './BulletController.js';
 import Player from './Player.js';
 // import Enemy from './Enemy.js';
 const canvas = document.getElementById('game');
@@ -11,14 +11,16 @@ canvas.height = 600;
 const background = new Image();
 background.src = './images/space.png';
 
-const playerBulletController = new bulletController(canvas, 10, 'white', true);
-const enemyController = new EnemyController(canvas);
+const playerBulletController = new BulletController(canvas, 10, 'red', true);
+const enemyBulletController = new BulletController(canvas, 4, 'white', false);
+const enemyController = new EnemyController(canvas, enemyBulletController);
 const player = new Player(canvas, 3, playerBulletController);
 
 function game() {
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-  // enemyController.draw(ctx);
+  enemyController.draw(ctx);
   player.draw(ctx);
+  playerBulletController.draw(ctx);
 }
 
 setInterval(game, 1000 / 60);
